@@ -1,0 +1,399 @@
+\documentclass[11pt,reqno
+,draft
+% ,final
+]{amsart}
+
+\pdfcompresslevel=0
+\pdfobjcompresslevel=0
+
+\usepackage{xr-hyper}
+\usepackage[pagebackref, colorlinks, citecolor=PineGreen, linkcolor=PineGreen]{hyperref}
+\hypersetup{
+  final,
+  pdftitle={Equivariant Robinson obstruction theory},
+  pdfauthor={Belmont, Eva and Bonventre, P. and Li, Ang},
+  linktoc=page
+}
+
+
+
+% ---- Commands on draft --------
+
+\usepackage[dvipsnames]{xcolor}% adds colors
+\usepackage{ifdraft}
+\ifdraft{
+  %\color[RGB]{63,63,63}
+  %\pagecolor[RGB]{220,220,204}
+  \usepackage[notref,notcite]{showkeys}
+  \usepackage{todonotes}
+}
+{
+  \usepackage[disable]{todonotes}
+}
+
+\usepackage{amsmath, amsthm}% {amsfonts, amssymb}
+
+
+% ------ New Characters --------------------------------------
+
+\usepackage[latin1]{inputenc}%
+\usepackage[T1]{fontenc}
+\usepackage{MnSymbol}
+\usepackage[
+cal = cm,
+bb = ams,
+frak = euler,
+scr = rsfs
+]{mathalpha}
+
+\usepackage[normalem]{ulem}% underlining
+\usepackage{bbm}% more bb
+
+%\usepackage{dsfont}% double strike-through
+% \usepackage{upgreek}
+
+
+
+%----- Enumerate ---------------------------------------------
+\usepackage[inline,shortlabels]{enumitem}% % can use \begin{enumerate*} for inparaenum
+
+
+% ---------- Page Typesetting ----------
+\usepackage[final]{microtype}
+\usepackage{relsize}
+\usepackage[margin=1in]{geometry}
+
+
+%-------- Tikz ---------------------------
+\usepackage{tikz}%
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing,cd,patterns,calc,backgrounds,patterns}
+\tikzset{%
+  dummy/.style    = {circle,draw,inner sep=0pt,minimum size=2mm},%
+}
+
+
+
+% ----- Labels Changed? --------
+
+\makeatletter
+
+\def\@testdef #1#2#3{%
+  \def\reserved@a{#3}\expandafter \ifx \csname #1@#2\endcsname
+  \reserved@a  \else
+  \typeout{^^Jlabel #2 changed:^^J%
+    \meaning\reserved@a^^J%
+    \expandafter\meaning\csname #1@#2\endcsname^^J}%
+  \@tempswatrue \fi}
+
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%% INTERNAL REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\numberwithin{equation}{section} 
+\numberwithin{figure}{section}
+
+
+% ------- New Theorems/ Definition/ Names-----------------------
+
+\usepackage[nameinlink,capitalise,noabbrev]{cleveref}
+
+%%%% to get \cref to behave as \eqref
+\crefname{equation}{}{}
+
+% \theoremstyle{plain} % bold name, italic text
+\newtheorem{theorem}[equation]{Theorem}%
+\newtheorem*{theorem*}{Theorem}%
+\newtheorem{lemma}[equation]{Lemma}%
+\newtheorem{proposition}[equation]{Proposition}%
+\newtheorem{corollary}[equation]{Corollary}%
+\newtheorem{conjecture}[equation]{Conjecture}%
+\newtheorem*{conjecture*}{Conjecture}%
+\newtheorem{claim}[equation]{Claim}%
+\newtheorem{question}[equation]{Question}
+
+
+\theoremstyle{definition} % bold name, plain text
+\newtheorem{definition}[equation]{Definition}%
+\newtheorem*{definition*}{Definition}%
+\newtheorem{example}[equation]{Example}%
+\newtheorem{remark}[equation]{Remark}%
+\newtheorem{notation}[equation]{Notation}%
+\newtheorem{convention}[equation]{Convention}%
+\newtheorem{assumption}[equation]{Assumption}%
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ------------------------------ COMMANDS ------------------------------
+
+% ---------- macros
+
+\newcommand{\set}[1]{\left\{#1\right\}}%
+\newcommand{\sets}[2]{\left\{ #1 \;|\; #2\right\}}%
+\newcommand{\longto}{\longrightarrow}%
+\newcommand{\into}{\hookrightarrow}%
+\newcommand{\onto}{\twoheadrightarrow}%
+
+\usepackage{harpoon}
+\newcommand{\vect}[1]{\text{\overrightharp{\ensuremath{#1}}}}
+
+
+% ---------- operators
+
+\newcommand{\Sym}{\ensuremath{\mathsf{Sym}}}%
+\newcommand{\Fin}{\mathsf{F}}%
+\newcommand{\Set}{\ensuremath{\mathsf{Set}}}
+\newcommand{\Top}{\ensuremath{\mathsf{Top}}}
+\newcommand{\sSet}{\ensuremath{\mathsf{sSet}}}%
+\newcommand{\Cat}{\mathsf{Cat}}
+\newcommand{\sCat}{\mathsf{sCat}}
+\newcommand{\Op}{\mathsf{Op}}%
+\newcommand{\sOp}{\ensuremath{\mathsf{sOp}}}%
+\newcommand{\fgt}{\ensuremath{\mathsf{fgt}}}%
+\newcommand{\dSet}{\mathsf{dSet}}
+\newcommand{\Fun}{\mathsf{Fun}}
+\newcommand{\Fib}{\mathsf{Fib}}
+\newcommand{\Alg}{\mathsf{Alg}}
+\newcommand{\Kl}{\mathsf{Kl}}
+
+
+
+\DeclareMathOperator{\hocmp}{hocmp}%
+\DeclareMathOperator{\cmp}{cmp}%
+\DeclareMathOperator{\hofiber}{hofiber}%
+\DeclareMathOperator{\fiber}{fiber}%
+\DeclareMathOperator{\hocofiber}{hocof}%
+\DeclareMathOperator{\hocof}{hocof}%
+\DeclareMathOperator{\holim}{holim}%
+\DeclareMathOperator{\hocolim}{hocolim}%
+\DeclareMathOperator{\colim}{colim}%
+\DeclareMathOperator{\Lan}{Lan}%
+\DeclareMathOperator{\Ran}{Ran}%
+\DeclareMathOperator{\Map}{Map}%
+\DeclareMathOperator{\Id}{Id}%
+\DeclareMathOperator{\mlf}{mlf}%
+\DeclareMathOperator{\Hom}{Hom}%
+\DeclareMathOperator{\Ho}{Ho}
+\DeclareMathOperator{\Aut}{Aut}%
+\DeclareMathOperator{\Stab}{Stab}
+\DeclareMathOperator{\Iso}{Iso}
+\DeclareMathOperator{\Ob}{Ob}
+
+% ---------- shortcuts
+
+\newcommand{\F}{\ensuremath{\mathcal F}}
+\newcommand{\V}{\ensuremath{\mathcal V}}
+\newcommand{\Q}{\ensuremath{\mathcal Q}}
+\renewcommand{\O}{\ensuremath{\mathcal O}}
+\renewcommand{\P}{\ensuremath{\mathcal P}}
+\newcommand{\C}{\ensuremath{\mathcal C}}
+\newcommand{\A}{\ensuremath{\mathcal A}}
+\newcommand{\G}{\ensuremath{\mathcal G}}
+
+\newcommand{\del}{\partial}%
+
+\newcommand{\ki}{\chi}
+\newcommand{\ksi}{\xi}
+\newcommand{\Ksi}{\Xi}
+
+
+% ---------- this paper
+
+\newcommand{\Lie}{\mathrm{Lie}}
+\newcommand{\Loday}{\mathcal L}
+\newcommand{\redstar}{{\color{red}\**}}
+\newcommand{\greenstar}{{\color{ForestGreen}\**}}
+
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ------------------------------ MAIN BODY ------------------------------
+
+% ---- Title --------
+
+\title{Proof of Theorem 5.4}
+
+% \author{Eva Belmont, Peter Bonventre, Ang Li}%
+
+\date{\today}
+
+
+% ---- Document body ----
+
+\begin{document}
+
+
+% \begin{abstract}
+%       Things and stuff
+% \end{abstract}
+
+
+ \maketitle
+
+% \tableofcontents
+
+\section{First definitions and comparisons}
+
+
+Let $\Gamma$ denote the category of finite based sets and based maps, and $k$ a fixed ground field.
+\begin{definition}
+        A \textit{left $\Gamma$-module} is a functor $\Gamma \to k-mod$, while a
+        \textit{right $\Gamma$-module} is a functor $\Gamma^{op} \to k-mod$.
+\end{definition}
+
+\begin{definition}
+        Given a DGA $\Lambda$ and a $\Lambda$-module $R$, the \textit{(graded) Loday functor} is the left $\Gamma$-module
+        \[
+                \Loday(\Lambda, R) \colon \Gamma \to k-mod,
+                \qquad
+                [n] \mapsto \Lambda^{\otimes_R n}.
+        \]
+\end{definition}
+
+\begin{definition}
+        Let $\Lie_m^{\**}$ denote the \textcolor{red}{dual Lie representation}.
+        We define a functor $\Ksi$ from left $\Gamma$-modules to bicomplexes by
+        \[
+                \Ksi(F)_{p,q} = \mathcal B \left( \Lie_{q+1}^{\**}, \Sigma_{q+1}, F(q+1) \right)
+                = \Lie_{q+1}^{\**} \otimes k\left[\Sigma_{q+1}^{\times p}\right] \otimes F(q+1).
+        \]
+        One differential comes from the bar complex and is easy; the other is more complicated.
+\end{definition}
+
+\begin{definition}
+        Given a DGA $\Lambda$ and a $\Lambda$-module $R$, the \textit{$\Gamma$-cohomology} of $\Lambda$ over $R$ is the bigraded abelian group
+        \[
+                H\Gamma^{\redstar, \greenstar}(\Lambda, R) := H^{\redstar} \mathrm{Tot} \Hom_R^{\greenstar} \left( \Ksi(\Loday(\Lambda, R)), R \right).
+        \]
+\end{definition}
+
+\todo[inline]{The above clarifies the notation from both of \cite{RW02,Rob03} by resolving the ambigous placements of $\Ksi$ and also identifing the bidegrees.}
+
+
+
+% \subsection{``Unnecessary'' definitions}
+
+% Following [{\cite[\S 2.1]{Pir00}}],
+% Any left $\Gamma$-module $F$ can be prolonged to a functor $F \colon \mathsf{Set}_{\**}^{\Delta^{op}} \to \mathsf{Vect}^{\Delta^{op}}$
+% from the category of simplicial pointed sets to simplicial vector spaces,
+% first by right Kan extending along the inclusion $\Gamma \to \Set_{\**}$ of finite pointed sets into all pointed sets,
+% and then acting degreewise.
+% Analogoulsy, by left Kan extending and acting degreewise, any right $\Gamma$-module $F$ can be prolonged to a functor
+% $F \colon \mathsf{Set}_{\**}^{\Delta^{op}} \to \mathsf{Vect}^{\Delta}$ to cosimplicial vector spaces.
+
+% \begin{claim}
+%         For any left $\Gamma$-module $F$, there is a natural transformation $S^1 \wedge F(S^n) \to F(S^{n+1})$,
+%         and we define the \textit{stable homotopy groups}
+%         \[
+%                 \pi_{\**}^{st}(F) := \colim \pi_{\** + n} F(S^n).
+%         \]
+%         Similarly, for any right $\Gamma$-module $F$ there is a natural transformation 
+% \end{claim}
+
+
+
+
+\begin{proposition}[{\cite[Cor 3.7]{Rob03} or \cite[Cor. 3.17]{Rob18}}]
+        There is an isomorphism $\pi_{\redstar}(F) \cong H_{\redstar}\mathrm{Tot}\Ksi(F)$
+        natural in left $\Gamma$-modules $F$.
+\end{proposition}
+
+\todo[inline]{We actually need the \textit{dual} of this, which I am having trouble formulating.
+  Here is a guess, which really doesn't make sense, as $R$ is not defined for an arbitrary $F$}
+\begin{claim}
+        We have an isomorphism
+        \[
+                \pi^{\**}\Hom_R(F,R) \cong H^{\**}\mathrm{Tot} \Hom_R(\Ksi(F), R)
+        \]
+        natural in left $\Gamma$-modules $F$.
+\end{claim}
+
+\begin{lemma}[{\cite[\S 4.9]{Rob18}}]
+        A homotopy ring spectrum $V = (V, \mu, \eta)$ determines a graded right $\Gamma$-module
+        \[
+                n \mapsto \pi_{\greenstar} \mathsf{End}(V)(n) = V^{\greenstar}(V^{\wedge n})
+        \]
+\end{lemma}
+
+\begin{remark}
+        Suppose $V$ satisfies a universal coefficient theorem:
+        \begin{equation}
+                \label{UCT_EQ}
+                V^{\**}(V^{\wedge k}) \simeq \Hom_{V_{\**}}\left( (V_{\**}V)^{\otimes k}, V_{\**} \right).
+        \end{equation}
+        Then we have an isomorphism of graded right $\Gamma$-modules
+        \[
+                \pi_{\greenstar} \mathsf{End}(V) \equiv
+                \Hom_{\V_{\**}}^{\greenstar}\left( \Loday(V_{\**}V, V_{\**}), V_{\**} \right). 
+          \]
+\end{remark}
+
+\begin{corollary}
+        \label{COMP_COR}
+        For $V$ satisfing \cref{UCT_EQ},
+        we have an isomorphism between $\Gamma$-homology of $V_{\**}V$ and the cohomotopy of $\pi_{\**} \mathsf{End}(V)$.
+\end{corollary}
+\begin{proof}
+        We have
+        \begin{align*}
+          H\Gamma^{\redstar, \greenstar}(V_{\**}V, V_{\**})
+          &= H^{\redstar} \mathrm{Tot} \Hom_{V_{\**}}^{\greenstar} \left( \Ksi \Loday(V_{\**}V, V_{\**}), V_{\**} \right) \\
+          &= \pi^{\redstar} \Hom_R^{\greenstar} \left( \Loday(V_{\**}V, V_{\**}), V_{\**} \right) \\
+          &= \pi^{\redstar} \pi_{\greenstar} \mathsf{End}(V) \\
+          &= \pi^{\redstar} \left( V^{\greenstar}(V^{\wedge \bullet}) \right).
+            \stepcounter{equation}\tag{\theequation}\label{COMP_EQ}\\
+        \end{align*}
+\end{proof}
+
+
+\section{Results}
+
+\subsection{Version 1}
+\begin{theorem}[{\cite[Thm. 4.13]{Rob18}}]
+        Let $V$ be a homotopy commutative ring spectrum.
+        Then the obstruction to lifting an $n$-stage lives in $\pi^n \left( V^{2-n}(V^{\wedge \bullet}) \right)$. 
+\end{theorem}
+
+\begin{corollary}
+        If $V$ is homotopy commutative and satisfies \cref{UCT_EQ}, then the obstruction lives in
+        $H \Gamma^{n, 2-n}(V_{\**} V, V_{\**})$. \qed
+\end{corollary}
+
+\subsection{Version 2}
+\begin{proposition}[{\cite[Prop. 5.4]{Rob03}}]
+        For a homotopy commutative ring spectrum satisfying \cref{UCT_EQ},
+        the obstruction lives in $H^n\mathrm{Tot} \Hom_{V_{\**}}^{2-n}(\Ksi \Loday(V_{\**}V, V_{\**}, V_{\**}))$.
+\end{proposition}
+\begin{proof}
+        For each $1 \leq m \leq n+1$, we have an obstruction in
+        \begin{align*}
+                V^1(\nabla^{n+1}/(\nabla^n \cup \partial \nabla^{n+1}) \wedge_{\Sigma_m} V^{\wedge m})
+          & =
+            \Hom_{V_{\**}}^{2-n}(Lie_m^{\**} \otimes V_{\**}[\Sigma_m^{n-m+1}] \otimes \V_{\**}V^{\otimes m}, V_{\**}) \\
+          & = 
+            \Hom_{V_{\**}}^{2-n}\left( \Ksi_{n-m+1, m-1}\Loday(V_{\**}V, V_{\**}), V_{\**} \right).
+        \end{align*}
+        These combine to form an $n$-cochain in $\mathrm{Tot}\Hom_{V_{\**}V}^{2-n}(\Ksi \Loday(V_{\**}V, V_{\**}), V_{\**})$.
+        \todo[inline]{so this is problem if the number of $\Sigma_m$-s is wrong, as we expect}
+        {\color{red} the rest of the proof...}
+\end{proof}
+
+\begin{corollary}
+        The obstruction lives in
+        $H \Gamma^{n, 2-n}(V_{\**} V, V_{\**}) = \pi^n \left( V^{2-n}(V^{\wedge \bullet}) \right)$. \qed
+\end{corollary}
+
+\section{Questions}
+
+\begin{question}
+        Which side of \cref{COMP_EQ} is more conceptual? Easier to compute? Useful?
+\end{question}
+
+
+
+\bibliography{biblio}{}
+\bibliographystyle{amsalpha2} 
+
+
+
+\end{document}

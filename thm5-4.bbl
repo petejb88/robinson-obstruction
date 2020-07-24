@@ -1,0 +1,28 @@
+\providecommand{\bysame}{\leavevmode\hbox to3em{\hrulefill}\thinspace}
+\providecommand{\MR}{\relax\ifhmode\unskip\space\fi MR }
+% \MRhref is called by the amsart/book/proc definition of \MR.
+\providecommand{\MRhref}[2]{%
+  \href{http://www.ams.org/mathscinet-getitem?mr=#1}{#2}
+}
+\providecommand{\doi}[1]{%
+  doi:\href{https://dx.doi.org/#1}{#1}}
+\providecommand{\arxiv}[1]{%
+  arXiv:\href{https://arxiv.org/abs/#1}{#1}}
+\providecommand{\href}[2]{#2}
+\begin{thebibliography}{Rob18}
+
+\bibitem[Rob03]{Rob03}
+A.~Robinson, \emph{Gamma homology, {L}ie representations and {$E_\infty$}
+  multiplications}, Invent. Math. \textbf{152} (2003), no.~2, 331--348.
+  \doi{10.1007/s00222-002-0272-5}
+
+\bibitem[Rob18]{Rob18}
+\bysame, \emph{{$E_\infty$} obstruction theory}, Homology Homotopy Appl.
+  \textbf{20} (2018), no.~1, 155--184. \doi{10.4310/HHA.2018.v20.n1.a10}
+
+\bibitem[RW02]{RW02}
+A.~Robinson and S.~Whitehouse, \emph{Operads and {$\Gamma$}-homology of
+  commutative rings}, Math. Proc. Cambridge Philos. Soc. \textbf{132} (2002),
+  no.~2, 197--234. \doi{10.1017/S0305004102005534}
+
+\end{thebibliography}

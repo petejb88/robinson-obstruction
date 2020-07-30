@@ -1,6 +1,10 @@
 \backcite {RW02,Rob03}{{1}{1}{section*.1}}
 \backcite {Rob03}{{1}{1.5}{equation.1.5}}
 \backcite {Rob18}{{1}{1.5}{equation.1.5}}
-\backcite {Rob18}{{1}{1.7}{equation.1.7}}
+\backcite {Rob03}{{1}{1}{equation.1.5}}
+\backcite {Rob18}{{1}{1.6}{equation.1.6}}
+\backcite {Rob18}{{1}{1.8}{equation.1.8}}
+\backcite {Rob18}{{2}{2.1}{subsection.2.1}}
 \backcite {Rob18}{{2}{2.1}{equation.2.1}}
+\backcite {Rob03}{{2}{2.2}{subsection.2.2}}
 \backcite {Rob03}{{2}{2.3}{equation.2.3}}

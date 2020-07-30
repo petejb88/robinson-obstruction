@@ -203,8 +203,9 @@ scr = rsfs
 \newcommand{\Loday}{\mathcal L}
 \newcommand{\redstar}{{\color{red}\**}}
 \newcommand{\greenstar}{{\color{ForestGreen}\**}}
-
-
+\newcommand{\Mod}{\mathsf{Mod}}
+\DeclareMathOperator{\Tot}{Tot}
+\DeclareMathOperator{\Conf}{Conf}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ------------------------------ MAIN BODY ------------------------------
@@ -237,14 +238,14 @@ scr = rsfs
 
 Let $\Gamma$ denote the category of finite based sets and based maps, and $k$ a fixed ground field.
 \begin{definition}
-        A \textit{left $\Gamma$-module} is a functor $\Gamma \to k-mod$, while a
-        \textit{right $\Gamma$-module} is a functor $\Gamma^{op} \to k-mod$.
+        A \textit{left $\Gamma$-module} is a functor $\Gamma \to \Mod_k$, while a
+        \textit{right $\Gamma$-module} is a functor $\Gamma^{op} \to \Mod_k$.
 \end{definition}
 
 \begin{definition}
         Given a DGA $\Lambda$ and a $\Lambda$-module $R$, the \textit{(graded) Loday functor} is the left $\Gamma$-module
         \[
-                \Loday(\Lambda, R) \colon \Gamma \to k-mod,
+                \Loday(\Lambda, R) \colon \Gamma \to \Mod_k,
                 \qquad
                 [n] \mapsto \Lambda^{\otimes_R n}.
         \]
@@ -254,7 +255,7 @@ Let $\Gamma$ denote the category of finite based sets and based maps, and $k$ a 
         Let $\Lie_m^{\**}$ denote the \textcolor{red}{dual Lie representation}.
         We define a functor $\Ksi$ from left $\Gamma$-modules to bicomplexes by
         \[
-                \Ksi(F)_{p,q} = \mathcal B \left( \Lie_{q+1}^{\**}, \Sigma_{q+1}, F(q+1) \right)
+                \Ksi(F)_{p,q} = \mathcal B_p \left( \Lie_{q+1}^{\**}, \Sigma_{q+1}, F(q+1) \right)
                 = \Lie_{q+1}^{\**} \otimes k\left[\Sigma_{q+1}^{\times p}\right] \otimes F(q+1).
         \]
         One differential comes from the bar complex and is easy; the other is more complicated.
@@ -263,7 +264,7 @@ Let $\Gamma$ denote the category of finite based sets and based maps, and $k$ a 
 \begin{definition}
         Given a DGA $\Lambda$ and a $\Lambda$-module $R$, the \textit{$\Gamma$-cohomology} of $\Lambda$ over $R$ is the bigraded abelian group
         \[
-                H\Gamma^{\redstar, \greenstar}(\Lambda, R) := H^{\redstar} \mathrm{Tot} \Hom_R^{\greenstar} \left( \Ksi(\Loday(\Lambda, R)), R \right).
+                H\Gamma^{\redstar, \greenstar}(\Lambda, R) := H^{\redstar} \Tot \Hom_R^{\greenstar} \left( \Ksi(\Loday(\Lambda, R)), R \right).
         \]
 \end{definition}
 
@@ -294,61 +295,95 @@ Let $\Gamma$ denote the category of finite based sets and based maps, and $k$ a 
 
 
 \begin{proposition}[{\cite[Cor 3.7]{Rob03} or \cite[Cor. 3.17]{Rob18}}]
-        There is an isomorphism $\pi_{\redstar}(F) \cong H_{\redstar}\mathrm{Tot}\Ksi(F)$
+        There is an isomorphism
+        \[
+                \pi_{\redstar}(F) \cong H_{\redstar}\Tot\Ksi(F)
+        \]
         natural in left $\Gamma$-modules $F$.
 \end{proposition}
 
-\todo[inline]{We actually need the \textit{dual} of this, which I am having trouble formulating.
-  Here is a guess, which really doesn't make sense, as $R$ is not defined for an arbitrary $F$}
-\begin{claim}
-        We have an isomorphism
-        \[
-                \pi^{\**}\Hom_R(F,R) \cong H^{\**}\mathrm{Tot} \Hom_R(\Ksi(F), R)
-        \]
-        natural in left $\Gamma$-modules $F$.
-\end{claim}
+We actually need the dual result, which is not stated in \cite{Rob03}.
+\begin{proposition}[{\cite[Cor 3.17]{Rob18}}]
+        For any right $\Gamma$-module $F$, the stable cohomotopy $\pi^n(F)$ is the cohomology of the complex
+        \begin{equation}
+                \label{COMP1_EQ}
+               \pi^{\redstar}(F) = H^{\redstar} \Tot_{p,q} \Hom \left( \Lie_{q+1}^{\**} \otimes k[\Sigma_{q+1}]^{\otimes p}, F(q+1) \right).
+       \end{equation}
+\end{proposition}
+
+% \todo[inline]{We actually need the \textit{dual} of this, which I am having trouble formulating.
+%   Here is a guess, which really doesn't make sense, as $R$ is not defined for an arbitrary $F$}
+% \begin{claim}
+%         We have an isomorphism
+%         \[
+%                 \pi^{\**}\Hom_R(F,R) \cong H^{\**}\Tot \Hom_R(\Ksi(F), R)
+%         \]
+%         natural in left $\Gamma$-modules $F$.
+% \end{claim}
 
 \begin{lemma}[{\cite[\S 4.9]{Rob18}}]
         A homotopy ring spectrum $V = (V, \mu, \eta)$ determines a graded right $\Gamma$-module
         \[
-                n \mapsto \pi_{\greenstar} \mathsf{End}(V)(n) = V^{\greenstar}(V^{\wedge n})
+                n \mapsto V^{\greenstar}(V^{\wedge n}) %= \pi_{\greenstar} \End(V)
         \]
 \end{lemma}
 
 \begin{remark}
-        Suppose $V$ satisfies a universal coefficient theorem:
+        \label{UCT_REM}
+        If $V$ satisfies a universal coefficient theorem as on the left below,
         \begin{equation}
                 \label{UCT_EQ}
-                V^{\**}(V^{\wedge k}) \simeq \Hom_{V_{\**}}\left( (V_{\**}V)^{\otimes k}, V_{\**} \right).
+                V^{\**}(V^{\wedge k}) \simeq \Hom^{\**}_{V_{\**}}\left( (V_{\**}V)^{\otimes k}, V_{\**} \right)
+                \qquad \qquad
+                V^{\greenstar}(V^{\wedge (-)}) \equiv %\pi_{\greenstar} \mathsf{End}(V) \equiv
+                \Hom_{V_{\**}}^{\greenstar}\left( \Loday(V_{\**}V, V_{\**}), V_{\**} \right)
         \end{equation}
-        Then we have an isomorphism of graded right $\Gamma$-modules
-        \[
-                \pi_{\greenstar} \mathsf{End}(V) \equiv
-                \Hom_{\V_{\**}}^{\greenstar}\left( \Loday(V_{\**}V, V_{\**}), V_{\**} \right). 
-          \]
+        then we have an isomorphism of graded right $\Gamma$-modules as on the right.
 \end{remark}
 
 \begin{corollary}
         \label{COMP_COR}
         For $V$ satisfing \cref{UCT_EQ},
-        we have an isomorphism between $\Gamma$-homology of $V_{\**}V$ and the cohomotopy of $\pi_{\**} \mathsf{End}(V)$.
+        we have an isomorphism between $\Gamma$-homology of $V_{\**}V$ and the cohomotopy of $V^{\**}(V^{\wedge (-)})$. %$\pi_{\**} \mathsf{End}(V)$.
 \end{corollary}
 \begin{proof}
-        We have
+        When $F^{\greenstar}$ is the graded $\Gamma$-module $\Hom^{\greenstar}_{V_{\**}}\left( \Loday(V_{\**}V), V_{\**}), V_{\**} \right)$,
+        \cref{COMP1_EQ} implies we have isomorphisms
         \begin{align*}
-          H\Gamma^{\redstar, \greenstar}(V_{\**}V, V_{\**})
-          &= H^{\redstar} \mathrm{Tot} \Hom_{V_{\**}}^{\greenstar} \left( \Ksi \Loday(V_{\**}V, V_{\**}), V_{\**} \right) \\
-          &= \pi^{\redstar} \Hom_R^{\greenstar} \left( \Loday(V_{\**}V, V_{\**}), V_{\**} \right) \\
-          &= \pi^{\redstar} \pi_{\greenstar} \mathsf{End}(V) \\
-          &= \pi^{\redstar} \left( V^{\greenstar}(V^{\wedge \bullet}) \right).
-            \stepcounter{equation}\tag{\theequation}\label{COMP_EQ}\\
+          \pi^{\redstar} \Hom^{\greenstar}_{V_{\**}}\left( \Loday(V_{\**}V), V_{\**}), V_{\**} \right)
+          & =
+            H^{\redstar} \Tot_{p,q} \Hom^{\greenstar}_{V_{\**}} \left( \Lie_{q+1}^{\**} \otimes k[\Sigma_{q+1}]^{\otimes p} \otimes (V_{\**}V)^{\otimes q+1}, V_{\**} \right) \\
+          & =
+            H^{\redstar} \Tot \Hom^{\greenstar}_{V_{\**}} \left( \Ksi \Loday(V_{\**}V, V_{\**}), V_{\**} \right).
+            \stepcounter{equation}\tag{\theequation}\label{COMP1_VSTAR_EQ}\\
         \end{align*}
+        
+        Thus we have
+        \begin{align*}
+          \pi^{\redstar} V^{\greenstar}(V^{\wedge (-)})
+          &= \pi^{\redstar} \Hom^{\greenstar}_{V_{\**}}(\Loday(V_{\**}V, V_{\**}), V_{\**}) \\
+          &= H^{\redstar} \Tot \Hom^{\greenstar}_{V_{\**}}\left( \Ksi \Loday(V_{\**}V, V_{\**}), V_{\**} \right) \\
+          &= H\Gamma^{\redstar, \greenstar}(V_{\**}V, V_{\**})
+            \stepcounter{equation}\tag{\theequation}\label{COMP_EQ}\\
+          % H\Gamma^{\redstar, \greenstar}(V_{\**}V, V_{\**})
+          % &= H^{\redstar} \Tot \Hom_{V_{\**}}^{\greenstar} \left( \Ksi \Loday(V_{\**}V, V_{\**}), V_{\**} \right) \\
+          % &= \pi^{\redstar} \Hom_R^{\greenstar} \left( \Loday(V_{\**}V, V_{\**}), V_{\**} \right) \\
+          % &= \pi^{\redstar} \pi_{\greenstar} \mathsf{End}(V) \\
+          % &= \pi^{\redstar} \left( V^{\greenstar}(V^{\wedge \bullet}) \right).
+          %   \stepcounter{equation}\tag{\theequation}\label{COMP_EQ}\\
+        \end{align*}
+        where the first equality is by \cref{UCT_REM},
+        the second is by \cref{COMP1_VSTAR_EQ},
+        and the third is by definition.        
 \end{proof}
 
 
 \section{Results}
 
 \subsection{Version 1}
+
+In \cite{Rob18}, the main result is of a more general nature, living in stable cohomotopy, which is then specified in the case $V$ satisfies a universal coefficient isomorphism to $\Gamma$-cohomology.
+
 \begin{theorem}[{\cite[Thm. 4.13]{Rob18}}]
         Let $V$ be a homotopy commutative ring spectrum.
         Then the obstruction to lifting an $n$-stage lives in $\pi^n \left( V^{2-n}(V^{\wedge \bullet}) \right)$. 
@@ -360,27 +395,55 @@ Let $\Gamma$ denote the category of finite based sets and based maps, and $k$ a 
 \end{corollary}
 
 \subsection{Version 2}
+
+In \cite{Rob03}, the obstruction is found in an explicit group, which is defined(?) to be $\Gamma$-cohomology, which is then related to stable cohomotopy.
+
 \begin{proposition}[{\cite[Prop. 5.4]{Rob03}}]
         For a homotopy commutative ring spectrum satisfying \cref{UCT_EQ},
-        the obstruction lives in $H^n\mathrm{Tot} \Hom_{V_{\**}}^{2-n}(\Ksi \Loday(V_{\**}V, V_{\**}, V_{\**}))$.
+        the obstruction lives in $H \Gamma^{n, 2-n}(V_{\**}V, V_{\**}) := H^n\Tot \Hom_{V_{\**}}^{2-n}(\Ksi \Loday(V_{\**}V, V_{\**}, V_{\**}))$.
 \end{proposition}
 \begin{proof}
-        For each $1 \leq m \leq n+1$, we have an obstruction in
-        \begin{align*}
-                V^1(\nabla^{n+1}/(\nabla^n \cup \partial \nabla^{n+1}) \wedge_{\Sigma_m} V^{\wedge m})
-          & =
-            \Hom_{V_{\**}}^{2-n}(Lie_m^{\**} \otimes V_{\**}[\Sigma_m^{n-m+1}] \otimes \V_{\**}V^{\otimes m}, V_{\**}) \\
-          & = 
-            \Hom_{V_{\**}}^{2-n}\left( \Ksi_{n-m+1, m-1}\Loday(V_{\**}V, V_{\**}), V_{\**} \right).
-        \end{align*}
-        These combine to form an $n$-cochain in $\mathrm{Tot}\Hom_{V_{\**}V}^{2-n}(\Ksi \Loday(V_{\**}V, V_{\**}), V_{\**})$.
-        \todo[inline]{so this is problem if the number of $\Sigma_m$-s is wrong, as we expect}
-        {\color{red} the rest of the proof...}
+        {\color{red} Suppose we have a cofiber sequence}
+        \[
+                \nabla^{n} \cup \partial \nabla^{n+1} \wedge_{\Sigma_m} V^{\wedge m}
+                \longto
+                \nabla^{n+1} \wedge_{\Sigma_m} V^{\wedge m}
+                \longto
+                \nabla^{n+1}/(\nabla^n \cup \partial \nabla^{n+1}) \wedge_{\Sigma_m} V^{\wedge m}.
+        \]
+        Moreover, we have
+        \[
+                \nabla^{n+1}/(\nabla^n \cup \partial \nabla^{n+1})
+                \simeq
+                E \Sigma_m^{n-m+1}/E \Sigma_m^{n-m} \wedge \tilde T_m/\partial \tilde T_m
+                \simeq
+                \bigvee_{A} S^{n-m+1} \wedge \bigvee_{(m-1)!} S^{m-2}
+                \simeq
+                S^{n-1} \wedge (A \times (m-1)!)_+
+        \]
+        where {\color{red} $A = \Sigma_m^{n-m+2}$}
+        and $\mathbb Z[(m-1)!] = \Lie_m^{\**}$.
+        Thus, for each $1 \leq m \leq n+1$, we have an obstruction in
+        \[
+                V^1 \left( \nabla^{n+1}/(\nabla^n \cup \partial \nabla^{n+1}) \wedge_{\Sigma_m} V^{\wedge m} \right)
+                =
+                V^{2-n}\left( (A \times (m-1)!)_+ \wedge_{\Sigma_m} V^{\wedge m} \right)
+        \]
+        which by the universal coefficient isomorphism is given by
+        \[
+                \Hom_{V_{\**}}^{2-n}(\Lie_m^{\**} \otimes V_{\**}[\bar A] \otimes V_{\**}V^{\otimes m}, V_{\**})
+                =
+                \Hom_{V_{\**}}^{2-n}\left( \Ksi_{n-m+1, m-1}\Loday(V_{\**}V, V_{\**}), V_{\**} \right)
+        \]
+        where $\Sigma_m \times \bar A = A$.
+        These combine to form an $n$-cochain in $\Tot\Hom_{V_{\**}V}^{2-n}(\Ksi \Loday(V_{\**}V, V_{\**}), V_{\**})$.
+        \todo[inline]{so this is an issue if in fact $A = \Conf_{n-m+2}(\Sigma_m)$ instead and so the number of $\Sigma_m$-s is wrong, as we expect}
+        {\color{Blue} The rest of the proof shows this obstruction class is in fact a well-defined cocycle, using explicit information about $\Lie_m^{\**}$.}
 \end{proof}
 
 \begin{corollary}
         The obstruction lives in
-        $H \Gamma^{n, 2-n}(V_{\**} V, V_{\**}) = \pi^n \left( V^{2-n}(V^{\wedge \bullet}) \right)$. \qed
+        $\pi^n \left( V^{2-n}(V^{\wedge \bullet}) \right)$. \qed
 \end{corollary}
 
 \section{Questions}

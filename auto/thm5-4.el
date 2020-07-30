@@ -73,10 +73,14 @@
     "Lie"
     "Loday"
     "redstar"
-    "greenstar")
+    "greenstar"
+    "Mod")
    (LaTeX-add-labels
+    "COMP1_EQ"
+    "UCT_REM"
     "UCT_EQ"
     "COMP_COR"
+    "COMP1_VSTAR_EQ"
     "COMP_EQ")
    (LaTeX-add-bibliographies
     "biblio")

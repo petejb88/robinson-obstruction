@@ -11,7 +11,7 @@
 \hypersetup{
   final,
   pdftitle={Equivariant Robinson obstruction theory},
-  pdfauthor={Belmont, Eva and Bonventre, P. and Li, Ang},
+  pdfauthor={Belmont, Eva and Bonventre, P. and Li, Ang}, 
   linktoc=page
 }
 
@@ -39,12 +39,15 @@
 \usepackage[latin1]{inputenc}%
 \usepackage[T1]{fontenc}
 \usepackage{MnSymbol}
-\usepackage[
-cal = cm,
-bb = ams,
-frak = euler,
-scr = rsfs
-]{mathalpha}
+% \usepackage[
+% cal = cm,
+% bb = ams,
+% frak = euler,
+% scr = rsfs
+% ]{mathalpha}
+
+\usepackage[theoremfont,largesc]{newpxtext}
+\usepackage{newpxmath}
 
 \usepackage[normalem]{ulem}% underlining
 \usepackage{bbm}% more bb
@@ -143,7 +146,7 @@ scr = rsfs
 \newcommand{\Sym}{\ensuremath{\mathsf{Sym}}}%
 \newcommand{\Fin}{\mathsf{F}}%
 \newcommand{\Set}{\ensuremath{\mathsf{Set}}}
-\newcommand{\Top}{\ensuremath{\mathsf{Top}}}
+%\newcommand{\Top}{\ensuremath{\mathsf{Top}}}
 \newcommand{\sSet}{\ensuremath{\mathsf{sSet}}}%
 \newcommand{\Cat}{\mathsf{Cat}}
 \newcommand{\sCat}{\mathsf{sCat}}
@@ -206,6 +209,7 @@ scr = rsfs
 \newcommand{\Mod}{\mathsf{Mod}}
 \DeclareMathOperator{\Tot}{Tot}
 \DeclareMathOperator{\Conf}{Conf}
+\newcommand{\End}{\mathsf{End}}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % ------------------------------ MAIN BODY ------------------------------
@@ -247,7 +251,7 @@ Let $\Gamma$ denote the category of finite based sets and based maps, and $k$ a 
         \[
                 \Loday(\Lambda, R) \colon \Gamma \to \Mod_k,
                 \qquad
-                [n] \mapsto \Lambda^{\otimes_R n}.
+                [k] \mapsto \Lambda^{\otimes_R k}.
         \]
 \end{definition}
 
@@ -324,7 +328,7 @@ We actually need the dual result, which is not stated in \cite{Rob03}.
 \begin{lemma}[{\cite[\S 4.9]{Rob18}}]
         A homotopy ring spectrum $V = (V, \mu, \eta)$ determines a graded right $\Gamma$-module
         \[
-                n \mapsto V^{\greenstar}(V^{\wedge n}) %= \pi_{\greenstar} \End(V)
+                [k] \longmapsto V^{\greenstar}(V^{\wedge k}) = \pi_{\greenstar} \End(V)
         \]
 \end{lemma}
 
@@ -335,7 +339,7 @@ We actually need the dual result, which is not stated in \cite{Rob03}.
                 \label{UCT_EQ}
                 V^{\**}(V^{\wedge k}) \simeq \Hom^{\**}_{V_{\**}}\left( (V_{\**}V)^{\otimes k}, V_{\**} \right)
                 \qquad \qquad
-                V^{\greenstar}(V^{\wedge (-)}) \equiv %\pi_{\greenstar} \mathsf{End}(V) \equiv
+                V^{\greenstar}(V^{\wedge \bullet}) \equiv %\pi_{\greenstar} \mathsf{End}(V) \equiv
                 \Hom_{V_{\**}}^{\greenstar}\left( \Loday(V_{\**}V, V_{\**}), V_{\**} \right)
         \end{equation}
         then we have an isomorphism of graded right $\Gamma$-modules as on the right.
@@ -344,7 +348,7 @@ We actually need the dual result, which is not stated in \cite{Rob03}.
 \begin{corollary}
         \label{COMP_COR}
         For $V$ satisfing \cref{UCT_EQ},
-        we have an isomorphism between $\Gamma$-homology of $V_{\**}V$ and the cohomotopy of $V^{\**}(V^{\wedge (-)})$. %$\pi_{\**} \mathsf{End}(V)$.
+        we have an isomorphism between $\Gamma$-homology of $V_{\**}V$ and the cohomotopy of $V^{\**}(V^{\wedge \bullet})$. %$\pi_{\**} \mathsf{End}(V)$.
 \end{corollary}
 \begin{proof}
         When $F^{\greenstar}$ is the graded $\Gamma$-module $\Hom^{\greenstar}_{V_{\**}}\left( \Loday(V_{\**}V), V_{\**}), V_{\**} \right)$,
@@ -360,7 +364,7 @@ We actually need the dual result, which is not stated in \cite{Rob03}.
         
         Thus we have
         \begin{align*}
-          \pi^{\redstar} V^{\greenstar}(V^{\wedge (-)})
+          \pi^{\redstar} V^{\greenstar}(V^{\wedge \bullet})
           &= \pi^{\redstar} \Hom^{\greenstar}_{V_{\**}}(\Loday(V_{\**}V, V_{\**}), V_{\**}) \\
           &= H^{\redstar} \Tot \Hom^{\greenstar}_{V_{\**}}\left( \Ksi \Loday(V_{\**}V, V_{\**}), V_{\**} \right) \\
           &= H\Gamma^{\redstar, \greenstar}(V_{\**}V, V_{\**})
@@ -404,40 +408,46 @@ In \cite{Rob03}, the obstruction is found in an explicit group, which is defined
 \end{proposition}
 \begin{proof}
         {\color{red} Suppose we have a cofiber sequence}
-        \[
+        \begin{equation}
+                \label{COFIBRE_EQ}
                 \nabla^{n} \cup \partial \nabla^{n+1} \wedge_{\Sigma_m} V^{\wedge m}
                 \longto
                 \nabla^{n+1} \wedge_{\Sigma_m} V^{\wedge m}
                 \longto
                 \nabla^{n+1}/(\nabla^n \cup \partial \nabla^{n+1}) \wedge_{\Sigma_m} V^{\wedge m}.
-        \]
+        \end{equation}
         Moreover, we have
-        \[
-                \nabla^{n+1}/(\nabla^n \cup \partial \nabla^{n+1})
-                \simeq
-                E \Sigma_m^{n-m+1}/E \Sigma_m^{n-m} \wedge \tilde T_m/\partial \tilde T_m
-                \simeq
-                \bigvee_{A} S^{n-m+1} \wedge \bigvee_{(m-1)!} S^{m-2}
-                \simeq
-                S^{n-1} \wedge (A \times (m-1)!)_+
-        \]
+        \begin{align*}
+          \nabla^{n+1}/(\nabla^n \cup \partial \nabla^{n+1})
+          & \simeq
+            \left( \tilde T_m/\partial \tilde T_m \right) \wedge \left( E \Sigma_m^{n-m+1}/E \Sigma_m^{n-m} \right) \\
+          & \simeq
+            \left( \bigvee_{(m-1)!} S^{m-2} \right) \wedge \left( \bigvee_{A} S^{n-m+1} \right) \\
+          & \simeq
+            S^{n-1} \wedge ((m-1)! \times A)_+
+        \end{align*}
         where {\color{red} $A = \Sigma_m^{n-m+2}$}
         and $\mathbb Z[(m-1)!] = \Lie_m^{\**}$.
-        Thus, for each $1 \leq m \leq n+1$, we have an obstruction in
-        \[
-                V^1 \left( \nabla^{n+1}/(\nabla^n \cup \partial \nabla^{n+1}) \wedge_{\Sigma_m} V^{\wedge m} \right)
-                =
-                V^{2-n}\left( (A \times (m-1)!)_+ \wedge_{\Sigma_m} V^{\wedge m} \right)
-        \]
-        which by the universal coefficient isomorphism is given by
+        Thus, by the LES in cohomology associated to \cref{COFIBRE_EQ},
+        the obstruction to lifting the $n$-stage to an $(n+1)$-stage
+        (using that the $n$-stage automatically lifts to $\partial \nabla^{n+1}$)
+        lives in
+        \begin{align*}
+          V^1 \left( \nabla^{n+1}/(\nabla^n \cup \partial \nabla^{n+1}) \wedge_{\Sigma_m} V^{\wedge m} \right)
+          & =
+            V^{2-n}\left( ((m-1)! \times A)_+ \wedge_{\Sigma_m} V^{\wedge m} \right) \\
+          & =
+            V^{2-n} \left( ((m-1)! \times \bar A)_+ \wedge V^{\wedge m} \right)
+        \end{align*}
+        where $\Sigma_m \times \bar A = A$.
+        By the universal coefficient isomorphism, this group is also given by
         \[
                 \Hom_{V_{\**}}^{2-n}(\Lie_m^{\**} \otimes V_{\**}[\bar A] \otimes V_{\**}V^{\otimes m}, V_{\**})
                 =
-                \Hom_{V_{\**}}^{2-n}\left( \Ksi_{n-m+1, m-1}\Loday(V_{\**}V, V_{\**}), V_{\**} \right)
+                \Hom_{V_{\**}}^{2-n}\left( \Ksi_{n-m+1, m-1}\Loday(V_{\**}V, V_{\**}), V_{\**} \right).
         \]
-        where $\Sigma_m \times \bar A = A$.
         These combine to form an $n$-cochain in $\Tot\Hom_{V_{\**}V}^{2-n}(\Ksi \Loday(V_{\**}V, V_{\**}), V_{\**})$.
-        \todo[inline]{so this is an issue if in fact $A = \Conf_{n-m+2}(\Sigma_m)$ instead and so the number of $\Sigma_m$-s is wrong, as we expect}
+        \todo[inline]{so this is an issue if $A = \Conf_{n-m+2}(\Sigma_m)$, so the number of $\Sigma_m$-s is wrong}
         {\color{Blue} The rest of the proof shows this obstruction class is in fact a well-defined cocycle, using explicit information about $\Lie_m^{\**}$.}
 \end{proof}
 
